@@ -61,16 +61,16 @@ void Ksiazka_Adresowa:: wyswietl_menu_adresata()
     system("CLS");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),11);
     cout << "---------------------------"                         << endl;
-    cout << " Menu adresata:"                                 << endl;
+    cout << " Menu adresata:"                                     << endl;
     cout << "---------------------------"                         << endl;
-    cout << "1.  Dodaj nowy kontakt"                                 << endl;
-    cout << "2.  Wyszukaj kontakty wedlug imienia"                              << endl;
-    cout << "3.  Wyszukaj kontakty wedlug nazwiska"                                 << endl;
-    cout << "4.  Wyswietl wszystkie kontakty"                            << endl;
-    cout << "5.  Usun kontakt"                                  << endl;
-    cout << "6.  Zmien dane kontaktowe"                                    << endl;
-    cout << "7.  Zmiana hasla"                            << endl;
-    cout << "8.  Wylogowanie"                                         << endl;
+    cout << "1.  Dodaj nowy kontakt"                              << endl;
+    cout << "2.  Wyszukaj kontakty wedlug imienia"                << endl;
+    cout << "3.  Wyszukaj kontakty wedlug nazwiska"               << endl;
+    cout << "4.  Wyswietl wszystkie kontakty"                     << endl;
+    cout << "5.  Usun kontakt"                                    << endl;
+    cout << "6.  Zmien dane kontaktowe"                           << endl;
+    cout << "7.  Zmiana hasla"                                    << endl;
+    cout << "8.  Wylogowanie"                                     << endl;
     cout << "---------------------------"                         << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 }
