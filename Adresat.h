@@ -1,4 +1,4 @@
-#ifndef ADRESAT_H  // dodanie tych funkcji likwiduje blad podwojnego dodawania bibliotek
+#ifndef ADRESAT_H
 #define ADRESAT_H
 
 #include <iostream>
@@ -11,6 +11,16 @@ class Adresat
     string imie, nazwisko, numer_telefonu, email, adres;
 
    public:
+       Adresat (int id=0, int id_uzytkownika=0, string imie="", string nazwisko="", string numer_telefonu="", string email="", string adres="")
+       {
+           this ->id = id;
+           this ->id_uzytkownika = id_uzytkownika;
+           this ->imie = imie;
+           this ->nazwisko = nazwisko;
+           this ->numer_telefonu = numer_telefonu;
+           this ->email = email;
+           this ->adres = adres;
+       }
        void ustaw_id (int nowe_id);
        void ustaw_id_uzytkownika (int nowe_id_uzytkownika);
        void ustaw_imie (string nowe_imie);
@@ -28,4 +38,4 @@ class Adresat
        string pobierz_adres ();
 };
 
-#endif // UZYTKOWNIK_H
+#endif

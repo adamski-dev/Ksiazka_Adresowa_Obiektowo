@@ -10,46 +10,41 @@ string Zarzadzanie_Adresatami::zamien_pierwsza_litere_na_duza_a_pozostale_na_mal
     return tekst;
 }
 
-void Zarzadzanie_Adresatami::dodaj_adresata(int id_zalogowanego_uzytkownika)
+void Zarzadzanie_Adresatami::dodaj_adresata()
 {
     Adresat adresat;
-    adresat.ustaw_id(pobierz_id_nowego_adresata());
-    adresat.ustaw_id_uzytkownika(id_zalogowanego_uzytkownika);
+    adresat.ustaw_id(plik_adresatow.pobierz_id_ostatniego_adresata()+1);
+    adresat.ustaw_id_uzytkownika(ID_ZALOGOWANEGO_UZYTKOWNIKA);
 
-    string text="";
+    string tekst="";
     cout << "Podaj imie: ";
-    cin >> text;
-    adresat.ustaw_imie(zamien_pierwsza_litere_na_duza_a_pozostale_na_male(text));
+    cin >> tekst;
+    adresat.ustaw_imie(zamien_pierwsza_litere_na_duza_a_pozostale_na_male(tekst));
 
     cout << "Podaj nazwisko: ";
-    cin >> text;
-    adresat.ustaw_nazwisko(zamien_pierwsza_litere_na_duza_a_pozostale_na_male(text));
+    cin >> tekst;
+    adresat.ustaw_nazwisko(zamien_pierwsza_litere_na_duza_a_pozostale_na_male(tekst));
 
     cout << "Podaj numer telefonu: ";
-    cin >> text;
-    adresat.ustaw_numer_telefonu(text);
+    cin >> tekst;
+    adresat.ustaw_numer_telefonu(tekst);
 
     cout << "Podaj email: ";
-    cin >> text;
-    adresat.ustaw_email(text);
+    cin >> tekst;
+    adresat.ustaw_email(tekst);
 
     cout << "Podaj adres: ";
     cin.sync();
-    getline (cin, text);
-    adresat.ustaw_adres(text);
+    getline (cin, tekst);
+    adresat.ustaw_adres(tekst);
 
     adresaci.push_back(adresat);
     plik_adresatow.dopisz_adresata_do_pliku(adresat);
 }
-int Zarzadzanie_Adresatami::pobierz_id_nowego_adresata()
-{
-    if (adresaci.empty() == true)
-        return 1;
-    else
-        return adresaci.back().pobierz_id() + 1;
-}
+
 void Zarzadzanie_Adresatami::wypisz_wszystkich_adresatow()
 {
+    cout << endl;
     for (int i=0; i < adresaci.size(); i++)
     {
        cout << adresaci[i].pobierz_id()             << "|";
@@ -60,8 +55,5 @@ void Zarzadzanie_Adresatami::wypisz_wszystkich_adresatow()
        cout << adresaci[i].pobierz_email()          << "|";
        cout << adresaci[i].pobierz_adres()          << "|" << endl;
     }
-}
-void Zarzadzanie_Adresatami::wczytaj_adresatow_z_pliku(int id_zalogowanego_uzytkownika)
-{
-    adresaci = plik_adresatow.wczytaj_adresatow_z_pliku(id_zalogowanego_uzytkownika);
+    system("pause");
 }
