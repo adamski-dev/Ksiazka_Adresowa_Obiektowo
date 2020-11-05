@@ -4,8 +4,7 @@ void Plik_Adresatow::dopisz_adresata_do_pliku(Adresat adresat)
 {
     string linia_z_danymi_adresata = "";
     fstream plik_tekstowy;
-    string nazwa_pliku = "Adresaci.txt";
-    plik_tekstowy.open(nazwa_pliku, ios::app);
+    plik_tekstowy.open(NAZWA_PLIKU_ADRESATOW.c_str(), ios::app);
 
     if (plik_tekstowy.good() == true)
     {
@@ -13,8 +12,9 @@ void Plik_Adresatow::dopisz_adresata_do_pliku(Adresat adresat)
         plik_tekstowy << linia_z_danymi_adresata << endl;
     }
     else
-    cout << "Nie udalo sie otworzyc pliku " << nazwa_pliku << " i zapisac w nim danych." << endl;
+    cout << "Nie udalo sie otworzyc pliku " << NAZWA_PLIKU_ADRESATOW << " i zapisac w nim danych." << endl;
     plik_tekstowy.close();
+    id_ostatniego_adresata++;
 }
 
 string Plik_Adresatow::zamien_dane_adresata_na_linie_z_danymi_oddzielona_pionowymi_kreskami(Adresat adresat)
@@ -34,11 +34,12 @@ vector<Adresat> Plik_Adresatow::wczytaj_adresatow_z_pliku(int id_zalogowanego_uz
 {
     Adresat adresat;
     fstream plik_tekstowy;
-    string nazwa_pliku = "Adresaci.txt";
     vector<Adresat> adresaci;
     string dane_jednego_adresata_oddzielone_pionowymi_kreskami = "";
 
-    plik_tekstowy.open(nazwa_pliku, ios::in);
+    plik_tekstowy.open(NAZWA_PLIKU_ADRESATOW.c_str(), ios::in);
+
+    if (!plik_tekstowy.good()) id_ostatniego_adresata = 0;
 
     if (plik_tekstowy.good() == true)
     {
@@ -46,11 +47,13 @@ vector<Adresat> Plik_Adresatow::wczytaj_adresatow_z_pliku(int id_zalogowanego_uz
         {
             adresat = pobierz_dane_adresata(dane_jednego_adresata_oddzielone_pionowymi_kreskami);
             if (adresat.pobierz_id_uzytkownika()== id_zalogowanego_uzytkownika) adresaci.push_back(adresat);
+            id_ostatniego_adresata = pobierz_id_adresata (dane_jednego_adresata_oddzielone_pionowymi_kreskami);
         }
         plik_tekstowy.close();
     }
     return adresaci;
 }
+
 Adresat Plik_Adresatow::pobierz_dane_adresata(string dane_jednego_adresata_oddzielone_pionowymi_kreskami)
 {
     Adresat adresat;
@@ -87,4 +90,19 @@ Adresat Plik_Adresatow::pobierz_dane_adresata(string dane_jednego_adresata_oddzi
         }
     }
     return adresat;
+}
+
+int Plik_Adresatow::pobierz_id_adresata(string dane_ostatniego_adresata)
+{
+    size_t pozycja_znaku;
+    pozycja_znaku = dane_ostatniego_adresata.find('|');
+    string tekst_id="";
+    for (int i=0; i< pozycja_znaku; i++) tekst_id += dane_ostatniego_adresata[i];
+    int id_ostatniego_adresata = Metody_Pomocnicze::konwersja_string_na_int (tekst_id);
+    return id_ostatniego_adresata;
+}
+
+int Plik_Adresatow::pobierz_id_ostatniego_adresata()
+{
+    return id_ostatniego_adresata;
 }

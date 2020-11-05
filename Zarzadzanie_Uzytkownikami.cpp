@@ -3,13 +3,12 @@
 void Zarzadzanie_Uzytkownikami::rejestracja_uzytkownika()
 {
     Uzytkownik uzytkownik = podaj_dane_nowego_uzytkownika();
-
     uzytkownicy.push_back(uzytkownik);
     plik_uzytkownikow.dopisz_uzytkownika_do_pliku(uzytkownik);
-
     cout << endl << "Konto zalozono pomyslnie" << endl << endl;
     system("pause");
 }
+
 Uzytkownik Zarzadzanie_Uzytkownikami::podaj_dane_nowego_uzytkownika()
 {
     Uzytkownik uzytkownik;
@@ -30,6 +29,7 @@ Uzytkownik Zarzadzanie_Uzytkownikami::podaj_dane_nowego_uzytkownika()
 
     return uzytkownik;
 }
+
 int Zarzadzanie_Uzytkownikami::pobierz_id_nowego_uzytkownika()
 {
     if (uzytkownicy.empty() == true)
@@ -50,53 +50,40 @@ bool Zarzadzanie_Uzytkownikami::czy_istnieje_login(string login)
     }
     return false;
 }
-
-void Zarzadzanie_Uzytkownikami::wypisz_wszystkich_uzytkownikow()
-{
-    for (int i=0; i < uzytkownicy.size(); i++)
-    {
-       cout << uzytkownicy[i].pobierz_id() << endl;
-       cout << uzytkownicy[i].pobierz_login() << endl;
-       cout << uzytkownicy[i].pobierz_haslo() << endl;
-    }
-}
-void Zarzadzanie_Uzytkownikami::wczytaj_uzytkownikow_z_pliku()
-{
-    uzytkownicy = plik_uzytkownikow.wczytaj_uzytkownikow_z_pliku();
-}
-
-int Zarzadzanie_Uzytkownikami::logowanie_uzytkownika()
+void Zarzadzanie_Uzytkownikami::logowanie_uzytkownika()
 {
     string login = "", haslo = "";
     cout << endl << "Podaj login: ";
     cin >> login;
 
-    for  (int i=0; i<uzytkownicy.size(); i++)
+    vector <Uzytkownik> :: iterator it = uzytkownicy.begin();
+    while (it != uzytkownicy.end())
     {
-        if (uzytkownicy[i].pobierz_login() == login)
+        if (it -> pobierz_login() == login)
         {
-            for (int iloscProb = 3; iloscProb > 0; iloscProb--)
+            for (int iloscProb = 3; iloscProb > 0; iloscProb --)
             {
                 cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
                 cin >> haslo;
 
-                if (uzytkownicy[i].pobierz_haslo() == haslo)
+                if (it -> pobierz_haslo() == haslo)
                 {
                     cout << endl << "Zalogowales sie." << endl ;
-                    id_zalogowanego_uzytkownika = uzytkownicy[i].pobierz_id();
+                    id_zalogowanego_uzytkownika = it -> pobierz_id();
                     system("pause");
-                    return id_zalogowanego_uzytkownika;
+                    return;
                 }
             }
             cout << "Wprowadzono 3 razy bledne haslo." << endl;
             system("pause");
-            return 0;
+            return;
         }
+        it++;
     }
     cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
     system("pause");
-    return 0;
 }
+
 void Zarzadzanie_Uzytkownikami:: zmiana_hasla()
 {
     string nowe_haslo = "";
@@ -114,8 +101,20 @@ void Zarzadzanie_Uzytkownikami:: zmiana_hasla()
     }
     plik_uzytkownikow.zapisz_wszystkich_uzytkownikow_do_pliku(uzytkownicy);
 }
+
 void Zarzadzanie_Uzytkownikami::wylogowanie()
 {
     if (id_zalogowanego_uzytkownika != 0) id_zalogowanego_uzytkownika = 0;
     else cout << "Nikt nie jest aktualnie zalogowany." << endl;
+}
+
+bool Zarzadzanie_Uzytkownikami::czy_ktos_jest_zalogowany()
+{
+    if (id_zalogowanego_uzytkownika != 0) return true;
+    else return false;
+}
+
+int Zarzadzanie_Uzytkownikami::pobierz_id_zalogowanego_uzytkownika()
+{
+    return id_zalogowanego_uzytkownika;
 }
