@@ -1,5 +1,5 @@
 #include "Adresat.h"
-//tutaj mozemy robic validacje naszych danych wejsciowych.
+
 void Adresat::ustaw_id (int nowe_id)
 {
     if (nowe_id >= 0)

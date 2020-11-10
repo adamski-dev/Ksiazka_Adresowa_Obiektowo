@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    Ksiazka_Adresowa ksiazka_adresowa ("Uzytkownicy.txt", "Adresaci.txt");
+    Ksiazka_Adresowa ksiazka_adresowa;
 
     while (true)
     {
@@ -28,11 +28,11 @@ int main()
             switch (wybor)
             {
             case '1': ksiazka_adresowa.dodaj_adresata(); break;
-            case '2': /*ksiazka_adresowa.wyszukaj_wedlug_imienia();*/ break;
-            case '3': /*ksiazka_adresowa.wyszukaj_wedlug_nazwiska();*/ break;
+            case '2': ksiazka_adresowa.wyszukaj_wedlug_imienia(); break;
+            case '3': ksiazka_adresowa.wyszukaj_wedlug_nazwiska(); break;
             case '4': ksiazka_adresowa.wypisz_wszystkich_adresatow(); break;
-            case '5': /*ksiazka_adresowa.usun_adresata();*/ break;
-            case '6': /*ksiazka_adresowa.edytuj_adresata();*/ break;
+            case '5': ksiazka_adresowa.usun_adresata(); break;
+            case '6': ksiazka_adresowa.edytuj_adresata(); break;
             case '7': ksiazka_adresowa.zmiana_hasla(); break;
             case '8': ksiazka_adresowa.wylogowanie(); break;
             }

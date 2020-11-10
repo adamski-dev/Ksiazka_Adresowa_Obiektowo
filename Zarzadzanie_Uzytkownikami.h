@@ -16,7 +16,7 @@ class Zarzadzanie_Uzytkownikami
     Plik_Uzytkownikow plik_uzytkownikow;
 
 public:
-    Zarzadzanie_Uzytkownikami(string nazwa_pliku_z_uzytkownikami) : plik_uzytkownikow(nazwa_pliku_z_uzytkownikami){id_zalogowanego_uzytkownika =0; uzytkownicy = plik_uzytkownikow.wczytaj_uzytkownikow_z_pliku();};
+    Zarzadzanie_Uzytkownikami(){id_zalogowanego_uzytkownika =0; uzytkownicy = plik_uzytkownikow.wczytaj_uzytkownikow_z_pliku();};
     void logowanie_uzytkownika();
     void rejestracja_uzytkownika();
     void zmiana_hasla();

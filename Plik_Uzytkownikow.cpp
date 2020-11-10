@@ -4,16 +4,15 @@ void Plik_Uzytkownikow::dopisz_uzytkownika_do_pliku(Uzytkownik uzytkownik)
 {
     string linia_z_danymi_uzytkownika = "";
     fstream plik_tekstowy;
-    plik_tekstowy.open(NAZWA_PLIKU_UZYTKOWNIKOW.c_str(), ios::app);
+    plik_tekstowy.open(pobierz_nazwe_pliku_uzytkownikow(), ios::app);
 
     if (plik_tekstowy.good() == true)
     {
         linia_z_danymi_uzytkownika = zamien_dane_uzytkownika_na_linie_z_danymi_oddzielona_pionowymi_kreskami(uzytkownik);
         plik_tekstowy << linia_z_danymi_uzytkownika << endl;
-
     }
     else
-    cout << "Nie udalo sie otworzyc pliku " << NAZWA_PLIKU_UZYTKOWNIKOW << " i zapisac w nim danych." << endl;
+    cout << "Nie udalo sie otworzyc pliku " << pobierz_nazwe_pliku_uzytkownikow() << " i zapisac w nim danych." << endl;
     plik_tekstowy.close();
 }
 
@@ -34,7 +33,7 @@ vector<Uzytkownik> Plik_Uzytkownikow::wczytaj_uzytkownikow_z_pliku()
     vector<Uzytkownik> uzytkownicy;
     string dane_jednego_uzytkownika_oddzielone_pionowymi_kreskami = "";
 
-    plik_tekstowy.open(NAZWA_PLIKU_UZYTKOWNIKOW.c_str(), ios::in);
+    plik_tekstowy.open(pobierz_nazwe_pliku_uzytkownikow(), ios::in);
 
     if (plik_tekstowy.good() == true)
     {
@@ -86,7 +85,7 @@ void Plik_Uzytkownikow::zapisz_wszystkich_uzytkownikow_do_pliku(vector <Uzytkown
     fstream plik_tekstowy;
     string linia_z_danymi_uzytkownika = "";
     vector <Uzytkownik>::iterator it_koniec = --uzytkownicy.end();
-    plik_tekstowy.open(NAZWA_PLIKU_UZYTKOWNIKOW.c_str(), ios::out);
+    plik_tekstowy.open(pobierz_nazwe_pliku_uzytkownikow(), ios::out);
 
     if (plik_tekstowy.good() == true)
     {
@@ -107,7 +106,7 @@ void Plik_Uzytkownikow::zapisz_wszystkich_uzytkownikow_do_pliku(vector <Uzytkown
     }
     else
     {
-        cout << "Nie mozna otworzyc pliku " << NAZWA_PLIKU_UZYTKOWNIKOW << endl;
+        cout << "Nie mozna otworzyc pliku " << pobierz_nazwe_pliku_uzytkownikow() << endl;
     }
     plik_tekstowy.close();
 }

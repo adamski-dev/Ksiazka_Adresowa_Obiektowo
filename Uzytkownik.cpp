@@ -1,5 +1,5 @@
 #include "Uzytkownik.h"
-//tutaj mozemy robic validacje naszych danych wejsciowych.
+
 void Uzytkownik::ustaw_id (int nowe_id)
 {
     if (nowe_id >= 0)

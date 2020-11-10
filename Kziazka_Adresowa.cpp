@@ -10,7 +10,7 @@ void Ksiazka_Adresowa::logowanie_uzytkownika()
     zarzadzanie_uzytkownikami.logowanie_uzytkownika();
     if (zarzadzanie_uzytkownikami.czy_ktos_jest_zalogowany())
     {
-        zarzadzanie_adresatami = new Zarzadzanie_Adresatami (NAZWA_PLIKU_ADRESATOW, zarzadzanie_uzytkownikami.pobierz_id_zalogowanego_uzytkownika());
+        zarzadzanie_adresatami = new Zarzadzanie_Adresatami (zarzadzanie_uzytkownikami.pobierz_id_zalogowanego_uzytkownika());
     }
 }
 
@@ -43,12 +43,32 @@ bool Ksiazka_Adresowa:: czy_ktos_jest_zalogowany ()
     else return false;
 }
 
+void Ksiazka_Adresowa::wyszukaj_wedlug_imienia()
+{
+    zarzadzanie_adresatami -> wyszukaj_wedlug_imienia();
+}
+
+void Ksiazka_Adresowa::wyszukaj_wedlug_nazwiska()
+{
+    zarzadzanie_adresatami -> wyszukaj_wedlug_nazwiska();
+}
+
+void Ksiazka_Adresowa::usun_adresata()
+{
+    zarzadzanie_adresatami -> usun_adresata();
+}
+
+void Ksiazka_Adresowa::edytuj_adresata()
+{
+   zarzadzanie_adresatami -> edytuj_adresata();
+}
+
 void Ksiazka_Adresowa::wyswietl_glowne_menu()
 {
     system("CLS");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),11);
     cout << "---------------------------"                         << endl;
-    cout << " Menu Glowne:"                                       << endl;
+    cout << " Glowne menu:"                                       << endl;
     cout << "---------------------------"                         << endl;
     cout << "1.  Logowanie "                                      << endl;
     cout << "2.  Rejestracja konta"                               << endl;
@@ -60,17 +80,17 @@ void Ksiazka_Adresowa:: wyswietl_menu_adresata()
 {
     system("CLS");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),11);
-    cout << "---------------------------"                         << endl;
-    cout << " Menu adresata:"                                     << endl;
-    cout << "---------------------------"                         << endl;
-    cout << "1.  Dodaj nowy kontakt"                              << endl;
-    cout << "2.  Wyszukaj kontakty wedlug imienia"                << endl;
-    cout << "3.  Wyszukaj kontakty wedlug nazwiska"               << endl;
-    cout << "4.  Wyswietl wszystkie kontakty"                     << endl;
-    cout << "5.  Usun kontakt"                                    << endl;
-    cout << "6.  Zmien dane kontaktowe"                           << endl;
-    cout << "7.  Zmiana hasla"                                    << endl;
-    cout << "8.  Wylogowanie"                                     << endl;
-    cout << "---------------------------"                         << endl;
+    cout << "---------------------------"                     << endl;
+    cout << " Menu adresata:"                                 << endl;
+    cout << "---------------------------"                     << endl;
+    cout << "1.  Dodaj nowy kontakt"                          << endl;
+    cout << "2.  Wyszukaj kontakty wedlug imienia"            << endl;
+    cout << "3.  Wyszukaj kontakty wedlug nazwiska"           << endl;
+    cout << "4.  Wyswietl wszystkie kontakty"                 << endl;
+    cout << "5.  Usun kontakt"                                << endl;
+    cout << "6.  Zmien dane adresata"                       << endl;
+    cout << "7.  Zmiana hasla"                                << endl;
+    cout << "8.  Wylogowanie"                                 << endl;
+    cout << "---------------------------"                     << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 }
