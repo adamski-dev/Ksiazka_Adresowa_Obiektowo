@@ -1,4 +1,4 @@
-#ifndef UZYTKOWNIK_H  // dodanie tych funkcji likwiduje blad podwojnego dodawania bibliotek
+#ifndef UZYTKOWNIK_H
 #define UZYTKOWNIK_H
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#ifndef PLIK_TEKSTOWY_H  // dodanie tych funkcji likwiduje blad podwojnego dodawania bibliotek
+#ifndef PLIK_TEKSTOWY_H
 #define PLIK_TEKSTOWY_H
 
 #include <iostream>
