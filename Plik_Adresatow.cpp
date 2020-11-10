@@ -4,7 +4,7 @@ void Plik_Adresatow::dopisz_adresata_do_pliku(Adresat adresat)
 {
     string linia_z_danymi_adresata = "";
     fstream plik_tekstowy;
-    plik_tekstowy.open(NAZWA_PLIKU_ADRESATOW.c_str(), ios::app);
+    plik_tekstowy.open(pobierz_nazwe_pliku_adresatow(), ios::app);
 
     if (plik_tekstowy.good() == true)
     {
@@ -12,7 +12,7 @@ void Plik_Adresatow::dopisz_adresata_do_pliku(Adresat adresat)
         plik_tekstowy << linia_z_danymi_adresata << endl;
     }
     else
-    cout << "Nie udalo sie otworzyc pliku " << NAZWA_PLIKU_ADRESATOW << " i zapisac w nim danych." << endl;
+    cout << "Nie udalo sie otworzyc pliku " << pobierz_nazwe_pliku_adresatow() << " i zapisac w nim danych." << endl;
     plik_tekstowy.close();
     id_ostatniego_adresata++;
 }
@@ -37,7 +37,7 @@ vector<Adresat> Plik_Adresatow::wczytaj_adresatow_z_pliku(int id_zalogowanego_uz
     vector<Adresat> adresaci;
     string dane_jednego_adresata_oddzielone_pionowymi_kreskami = "";
 
-    plik_tekstowy.open(NAZWA_PLIKU_ADRESATOW.c_str(), ios::in);
+    plik_tekstowy.open(pobierz_nazwe_pliku_adresatow(), ios::in);
 
     if (!plik_tekstowy.good()) id_ostatniego_adresata = 0;
 
@@ -70,20 +70,13 @@ Adresat Plik_Adresatow::pobierz_dane_adresata(string dane_jednego_adresata_oddzi
         {
             switch(numer_pojedynczej_danej_adresata)
             {
-            case 1:
-                adresat.ustaw_id(atoi(pojedyncza_dana_adresata.c_str())); break;
-            case 2:
-                adresat.ustaw_id_uzytkownika(atoi(pojedyncza_dana_adresata.c_str())); break;
-            case 3:
-                adresat.ustaw_imie(pojedyncza_dana_adresata); break;
-            case 4:
-                adresat.ustaw_nazwisko(pojedyncza_dana_adresata); break;
-            case 5:
-                adresat.ustaw_numer_telefonu(pojedyncza_dana_adresata); break;
-            case 6:
-                adresat.ustaw_email(pojedyncza_dana_adresata); break;
-            case 7:
-                adresat.ustaw_adres(pojedyncza_dana_adresata); break;
+            case 1: adresat.ustaw_id(atoi(pojedyncza_dana_adresata.c_str())); break;
+            case 2: adresat.ustaw_id_uzytkownika(atoi(pojedyncza_dana_adresata.c_str())); break;
+            case 3: adresat.ustaw_imie(pojedyncza_dana_adresata); break;
+            case 4: adresat.ustaw_nazwisko(pojedyncza_dana_adresata); break;
+            case 5: adresat.ustaw_numer_telefonu(pojedyncza_dana_adresata); break;
+            case 6: adresat.ustaw_email(pojedyncza_dana_adresata); break;
+            case 7: adresat.ustaw_adres(pojedyncza_dana_adresata); break;
             }
             pojedyncza_dana_adresata = "";
             numer_pojedynczej_danej_adresata++;
@@ -105,4 +98,69 @@ int Plik_Adresatow::pobierz_id_adresata(string dane_ostatniego_adresata)
 int Plik_Adresatow::pobierz_id_ostatniego_adresata()
 {
     return id_ostatniego_adresata;
+}
+
+void Plik_Adresatow::usun_kontakt_z_pliku(int id)
+{
+    fstream plik_tekstowy;
+    fstream plik_tymczasowy;
+    plik_tekstowy.open(pobierz_nazwe_pliku_adresatow(),ios::in);
+    string dane_adresata_w_pliku;
+
+    while (getline(plik_tekstowy, dane_adresata_w_pliku))
+    {
+        string tekst_id = "";
+        size_t position = dane_adresata_w_pliku.find('|');
+        for (int i=0; i<position; i++) tekst_id+= dane_adresata_w_pliku[i];
+        int kontakt_id = Metody_Pomocnicze::konwersja_string_na_int (tekst_id);
+        if (kontakt_id != id)
+        {
+            plik_tymczasowy.open ("temp.txt",ios::out | ios::app);
+            plik_tymczasowy << dane_adresata_w_pliku << endl;
+            plik_tymczasowy.close();
+        }
+    }
+    plik_tekstowy.close();
+    remove(pobierz_nazwe_pliku_adresatow().c_str());
+    rename("temp.txt", pobierz_nazwe_pliku_adresatow().c_str());
+}
+
+void Plik_Adresatow:: zmien_dane_adresata_w_pliku(Adresat adresat)
+{
+    fstream plik_tekstowy;
+    fstream plik_tymczasowy;
+    plik_tekstowy.open(pobierz_nazwe_pliku_adresatow(),ios::in);
+    string dane_adresata_w_pliku;
+
+     while (getline(plik_tekstowy, dane_adresata_w_pliku))
+     {
+        string tekst_id = "";
+        size_t position = dane_adresata_w_pliku.find('|');
+        for (int i=0; i<position; i++) tekst_id+= dane_adresata_w_pliku[i];
+        int kontakt_id = Metody_Pomocnicze::konwersja_string_na_int (tekst_id);
+        if (kontakt_id != adresat.pobierz_id())
+        {
+            plik_tymczasowy.open ("temp.txt",ios::out | ios::app);
+            plik_tymczasowy << dane_adresata_w_pliku << endl;
+            plik_tymczasowy.close();
+        }
+        else
+        {
+            plik_tymczasowy.open ("temp.txt",ios::out | ios::app);
+            plik_tymczasowy << adresat.pobierz_id()                << "|";
+            plik_tymczasowy << adresat.pobierz_id_uzytkownika()    << "|";
+            plik_tymczasowy << adresat.pobierz_imie()              << "|";
+            plik_tymczasowy << adresat.pobierz_nazwisko()          << "|";
+            plik_tymczasowy << adresat.pobierz_numer_telefonu()    << "|";
+            plik_tymczasowy << adresat.pobierz_email()             << "|";
+            plik_tymczasowy << adresat.pobierz_adres()             << "|" << endl;
+            plik_tymczasowy.close();
+        }
+     }
+
+    plik_tekstowy.close();
+    remove(pobierz_nazwe_pliku_adresatow().c_str());
+    rename("temp.txt", pobierz_nazwe_pliku_adresatow().c_str());
+    cout << "Dane adresata zostaly pomyslnie zmienione" << endl;
+    system ("pause");
 }
