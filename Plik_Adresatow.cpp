@@ -118,7 +118,11 @@ void Plik_Adresatow::usun_kontakt_z_pliku(int id)
             plik_tymczasowy.open ("temp.txt",ios::out | ios::app);
             plik_tymczasowy << dane_adresata_w_pliku << endl;
             plik_tymczasowy.close();
+            id_ostatniego_adresata = kontakt_id; // linia dodana w celu naprawy bledu kiedy po usuwaniu kontaktow
+            //nie korygowalem wartosci id_ostatniego_adresata ktora oryginalnie jest tylko pobierana z pliku przy
+            //logowaniu uzytkownika i wczytywania jego danych do pamieci
         }
+
     }
     plik_tekstowy.close();
     remove(pobierz_nazwe_pliku_adresatow().c_str());

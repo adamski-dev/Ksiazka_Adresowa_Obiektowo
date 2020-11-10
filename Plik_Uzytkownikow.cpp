@@ -95,7 +95,7 @@ void Plik_Uzytkownikow::zapisz_wszystkich_uzytkownikow_do_pliku(vector <Uzytkown
 
             if (it == it_koniec)
             {
-               plik_tekstowy << linia_z_danymi_uzytkownika;
+               plik_tekstowy << linia_z_danymi_uzytkownika << endl; //dodanie endl w celu naprawy zapisu do pliku.
             }
             else
             {
