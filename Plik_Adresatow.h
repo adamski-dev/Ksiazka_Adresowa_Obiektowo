@@ -1,4 +1,4 @@
-#ifndef PLIK_ADRESATOW_H  // dodanie tych funkcji likwiduje blad podwojnego dodawania bibliotek
+#ifndef PLIK_ADRESATOW_H
 #define PLIK_ADRESATOW_H
 
 #include <iostream>

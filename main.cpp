@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Ksiazka_Adresowa.h"
-#include "Plik_Tekstowy.h"
 
 using namespace std;
 
