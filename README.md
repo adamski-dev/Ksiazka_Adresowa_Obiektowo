@@ -1,10 +1,10 @@
-Address book written in C++ (Object Oriented Programming)
+Address Book written in C++ (Object Oriented Programming)
 
-Address book console app based on C++ (OOP).
+Console app - an Address Book.
 Features:
-signing up/in/out
-password changing
-adding/removing/editing recipient
-finding recipietns by name/surname
-viewing all recipients list
-recipients data stored in TXT file
+signing in/up/
+password update
+add/remove/edit contact
+find contact by name/surname
+viewing all contacts list
+contacts data stored in TXT file
