@@ -8,4 +8,3 @@ adding/removing/editing recipient
 finding recipietns by name/surname
 viewing all recipients list
 recipients data stored in TXT file
-Screenshots
